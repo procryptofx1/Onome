@@ -1,1 +1,1716 @@
-# Onome
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Onome 💙</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary: #0033aa;
+      --primary-dark: #001a4d;
+      --accent: #ff4d94;
+      --text-light: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --bg-dark: #000000;
+      --card-bg: rgba(255, 255, 255, 0.1);
+      --transition: all 0.3s ease;
+      --border-radius: 16px;
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      --glitter-1: #ff4d94;
+      --glitter-2: #4db8ff;
+      --glitter-3: #ffdd00;
+    }
+    
+    /* ===== BASE STYLES ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--bg-dark));
+      color: var(--text-light);
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 100vh;
+      position: relative;
+      line-height: 1.6;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23002299' fill-opacity='0.2' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,213.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: cover;
+      z-index: -1;
+    }
+    
+    /* ===== GLITTER BACKGROUND ===== */
+    .glitter-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .glitter-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      opacity: 0;
+      animation: glitterFloat 8s linear infinite;
+    }
+    
+    @keyframes glitterFloat {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* ===== LAYOUT COMPONENTS ===== */
+    .screen-container {
+      width: 100%;
+      position: relative;
+    }
+    
+    .screen {
+      width: 100%;
+      min-height: 100vh;
+      display: none;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+    }
+    
+    .screen.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeIn 0.5s ease;
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .menu-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 280px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.98);
+      transition: left 0.4s ease;
+      padding: 80px 20px 30px;
+      display: flex;
+      flex-direction: column;
+      z-index: 999;
+      box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-menu.active {
+      left: 0;
+    }
+    
+    .nav-menu button {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-light);
+      padding: 15px 20px;
+      margin: 10px 0;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: var(--transition);
+    }
+    
+    .nav-menu button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateX(5px);
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 51, 170, 0.5), rgba(0, 0, 0, 0.8));
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 40px 20px;
+      text-align: center;
+      z-index: 2;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+      animation: slideUp 1s ease;
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .hero-text h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ffffff, #a3d5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      display: inline-block;
+      animation: fadeIn 1s ease, glow 2s infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      }
+    }
+    
+    .hero-text h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(to right, var(--glitter-1), var(--glitter-2), var(--glitter-3));
+      border-radius: 3px;
+      animation: glitterLine 2s infinite;
+    }
+    
+    .hero-text p {
+      font-size: 1.4rem;
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0 auto 30px;
+      line-height: 1.8;
+      animation: fadeIn 1.5s ease;
+    }
+    
+    .quest-button {
+      display: inline-block;
+      padding: 16px 40px;
+      background: linear-gradient(to right, var(--glitter-1), var(--glitter-2));
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: var(--transition);
+      animation: pulse 2s infinite;
+    }
+    
+    .quest-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* ===== WISHES SECTION ===== */
+    .wishes-content {
+      padding: 100px 20px 60px;
+    }
+    
+    .wish-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px;
+      margin: 30px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .wish-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .wish-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      line-height: 1.4;
+    }
+    
+    .wish-card p {
+      line-height: 1.9;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+    
+    .wish-card p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .foldable-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: var(--border-radius);
+      padding: 25px;
+      margin: 30px 0;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .foldable-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 1.4;
+    }
+    
+    .foldable-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.7s ease;
+    }
+    
+    .foldable-card.active .foldable-content {
+      max-height: 500px;
+      margin-top: 20px;
+    }
+    
+    .foldable-card.active {
+      padding-bottom: 30px;
+    }
+    
+    .gift-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: var(--border-radius);
+      padding: 35px;
+      margin: 40px auto;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .gift-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+    
+    .gift-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .gift-card h3 {
+      font-size: 1.7rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      line-height: 1.4;
+    }
+    
+    .card-number {
+      font-family: monospace;
+      letter-spacing: 2px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      line-height: 1.6;
+    }
+    
+    .card-number:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* ===== GALLERY SECTION ===== */
+    .gallery-content {
+      padding: 100px 20px 60px;
+    }
+    
+    .security-gate {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px;
+      margin: 30px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .security-gate h3 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      line-height: 1.4;
+    }
+    
+    .security-gate p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    
+    .security-input {
+      width: 100%;
+      padding: 18px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-light);
+      font-family: 'Poppins', sans-serif;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+      font-size: 1.1rem;
+    }
+    
+    .security-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 51, 170, 0.3);
+    }
+    
+    .password-input {
+      position: relative;
+    }
+    
+    .password-input input {
+      padding-right: 50px;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    
+    .security-btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: var(--text-light);
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      margin-top: 15px;
+    }
+    
+    .security-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+    
+    .gallery-item {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      aspect-ratio: 1/1;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+    
+    .gallery-video {
+      width: 100%;
+      margin: 40px 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .gallery-video video {
+      width: 100%;
+      display: block;
+    }
+    
+    /* Image Modal */
+    .image-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    
+    .image-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    
+    .modal-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: var(--primary);
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      transition: var(--transition);
+    }
+    
+    .close-modal:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+    
+    /* ===== GAMES SECTION ===== */
+    .game-container {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px;
+      margin: 40px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .game-title {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: var(--text-light);
+      line-height: 1.4;
+    }
+    
+    .game-container p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    
+    .memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+    
+    .memory-card {
+      height: 120px;
+      border-radius: 12px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+      position: relative;
+    }
+    
+    .memory-card.flipped {
+      transform: rotateY(180deg);
+    }
+    
+    .memory-card .front-face,
+    .memory-card .back-face {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .memory-card .front-face {
+      background: var(--primary-dark);
+      font-size: 2.5rem;
+      transform: rotateY(180deg);
+    }
+    
+    .memory-card .back-face {
+      background: linear-gradient(135deg, var(--glitter-1), var(--glitter-2));
+    }
+    
+    .quiz-container {
+      margin-top: 25px;
+    }
+    
+    .quiz-question {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .quiz-option {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+    
+    .quiz-option:hover {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    .quiz-option.selected {
+      background: rgba(0, 255, 0, 0.2);
+    }
+    
+    /* ===== MESSAGE BOTTLE ===== */
+    .bottle-container {
+      text-align: center;
+      margin: 40px 0;
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .bottle {
+      font-size: 4rem;
+      cursor: pointer;
+      margin-bottom: 25px;
+      display: inline-block;
+      transition: var(--transition);
+      animation: float 3s infinite ease-in-out;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    .bottle:hover {
+      transform: translateY(-10px) scale(1.1);
+    }
+    
+    .bottle-message {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-top: 25px;
+      display: none;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.8s ease;
+    }
+    
+    .bottle-message h3 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    
+    .message-input {
+      width: 100%;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--text-light);
+      font-family: 'Poppins', sans-serif;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    /* ===== POPUP MESSAGE ===== */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: rgba(0, 0, 0, 0.95);
+      padding: 30px 40px;
+      border-radius: var(--border-radius);
+      text-align: center;
+      opacity: 0;
+      z-index: 2000;
+      transition: var(--transition);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+      max-width: 85%;
+      line-height: 1.6;
+    }
+    
+    .popup.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .popup.hide {
+      opacity: 0;
+      transform: translate(-50%, 0) scale(0.9);
+      top: 70%;
+    }
+    
+    /* ===== FLOATING EMOJIS ===== */
+    .emoji {
+      position: fixed;
+      font-size: 2rem;
+      animation: floatUp 2s ease forwards;
+      z-index: 100;
+      pointer-events: none;
+    }
+    
+    .glitter {
+      position: fixed;
+      pointer-events: none;
+      z-index: 100;
+      animation: glitterFall 1s ease forwards;
+    }
+    
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      line-height: 1.6;
+    }
+    
+    /* ===== ANIMATIONS ===== */
+    @keyframes floatUp {
+      from {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-150px) rotate(20deg);
+      }
+    }
+    
+    @keyframes glitterFall {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100px) rotate(360deg);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+    }
+    
+    @keyframes shine {
+      0% {
+        left: -100%;
+      }
+      20% {
+        left: 100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+    
+    @keyframes glitterLine {
+      0% {
+        background-position: -100% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+    
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1024px) {
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+      
+      .hero-text p {
+        font-size: 1.3rem;
+      }
+      
+      .memory-game {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-text p {
+        font-size: 1.2rem;
+      }
+      
+      .quest-button {
+        padding: 14px 35px;
+        font-size: 1.2rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .memory-game {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .wish-card, .security-gate, .game-container {
+        padding: 25px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-content {
+        padding: 30px 15px;
+      }
+      
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-text p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+      }
+      
+      .quest-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+      }
+      
+      .wishes-content, .gallery-content {
+        padding: 80px 15px 40px;
+      }
+      
+      .wish-card, .security-gate, .game-container {
+        padding: 20px;
+      }
+      
+      .wish-card h3, .game-title, .security-gate h3 {
+        font-size: 1.5rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+      
+      .memory-game {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      
+      .memory-card {
+        height: 100px;
+      }
+      
+      .footer {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Glitter Background -->
+  <div class="glitter-bg" id="glitterBg"></div>
+  
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">💙 Onome's Day</div>
+    <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+  </div>
+  
+  <!-- Navigation Menu -->
+  <div class="nav-menu" id="navMenu">
+    <button class="close-btn" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+    <button onclick="showScreen('heroScreen')"><i class="fas fa-home"></i> Home</button>
+    <button onclick="showScreen('wishesScreen')"><i class="fas fa-gift"></i> Wishes</button>
+    <button onclick="showScreen('galleryScreen')"><i class="fas fa-image"></i> Gallery</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="screen-container">
+    <!-- Home Screen -->
+    <section id="heroScreen" class="screen active">
+      <div class="hero">
+        <!-- REPLACE THIS IMAGE URL WITH YOUR HERO IMAGE -->
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1000&q=80" alt="Beautiful Onome">
+      </div>
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Happy Birthday Onome 💙</h1>
+          <p>To the most amazing woman who makes my world brighter every day. Your smile lights up my world and your love fills my heart with joy. ✨</p>
+          <button class="quest-button" onclick="showScreen('wishesScreen')">Explore Your Wishes!</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wishes Screen -->
+    <section id="wishesScreen" class="screen">
+      <div class="wishes-content">
+        <div class="wish-card">
+          <h3><i class="fas fa-heart"></i> Love Letter</h3>
+          <p>My Dearest Onome,</p>
+          <p>On this special day, I want to remind you how incredibly blessed I am to have you in my life. You light up my world with your grace, beauty, and kind heart.</p>
+          <p>Your laughter is my favorite melody, and your smile is my greatest treasure. I cherish every moment we spend together and look forward to creating many more beautiful memories with you.</p>
+          <p>Happy birthday to the woman who makes every day brighter! 🎉</p>
+          <p>With all my love,<br>Promise</p>
+        </div>
+        
+        <!-- Additional Birthday Wishes Cards -->
+        <div class="wish-card">
+          <h3><i class="fas fa-birthday-cake"></i> Birthday Wishes</h3>
+          <p>Happy birthday to the most incredible woman I know! May your day be filled with laughter, joy, and all the things that make you smile.</p>
+          <p>You deserve all the happiness in the world today and always. I feel so lucky to be able to celebrate this special day with you.</p>
+        </div>
+        
+        <div class="wish-card">
+          <h3><i class="fas fa-star"></i> More Birthday Wishes</h3>
+          <p>On your special day, I wish you endless smiles, uncontrollable laughter, and moments that take your breath away.</p>
+          <p>You make every day feel like a celebration, but today is extra special because it's all about you!</p>
+        </div>
+        
+        <div class="wish-card">
+          <h3><i class="fas fa-gift"></i> Special Birthday Message</h3>
+          <p>Today isn't just about celebrating your birth, but celebrating the amazing person you are and the incredible impact you have on everyone around you.</p>
+          <p>I hope your birthday is as wonderful and special as you are to me!</p>
+        </div>
+        
+        <!-- Foldable Cards -->
+        <div class="foldable-card" onclick="toggleFoldable(this)">
+          <h3>💖 Touch to Unfold My Heart <i class="fas fa-chevron-down"></i></h3>
+          <div class="foldable-content">
+            <p>My love, every day with you feels like a blessing. Your smile is my sunshine, your voice is my favorite melody, and your touch sends shivers down my spine. I'm the luckiest person alive to have you in my life.</p>
+          </div>
+        </div>
+        
+        <div class="foldable-card" onclick="toggleFoldable(this)">
+          <h3>🔥 My Burning Desire <i class="fas fa-chevron-down"></i></h3>
+          <div class="foldable-content">
+            <p>From the moment I wake up until I close my eyes at night, thoughts of you consume me. Your beauty ignites a fire within me that never dies out. I crave your touch, your kiss, your everything.</p>
+          </div>
+        </div>
+        
+        <div class="foldable-card" onclick="toggleFoldable(this)">
+          <h3>💫 You Complete Me <i class="fas fa-chevron-down"></i></h3>
+          <div class="foldable-content">
+            <p>Before you, I never knew what true happiness felt like. You've shown me a love so deep and powerful that it has transformed me into a better person. With you, I've found my missing piece.</p>
+          </div>
+        </div>
+        
+        <div class="gift-card">
+          <h3><i class="fas fa-gift"></i> Birthday Gift Card</h3>
+          <p>Enjoy your special day with this gift!</p>
+          <div class="card-number" id="giftCardNumber" onclick="revealCardNumber()">6035 **** **** 9012</div>
+        </div>
+        
+        <!-- Quiz Game -->
+        <div class="game-container">
+          <h3 class="game-title"><i class="fas fa-question-circle"></i> How Well Do You Know Me?</h3>
+          <div class="quiz-container" id="quizContainer">
+            <!-- Quiz will be generated by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- Memory Game -->
+        <div class="game-container">
+          <h3 class="game-title"><i class="fas fa-puzzle-piece"></i> Memory Game</h3>
+          <p>Match the pairs to reveal special messages!</p>
+          <div class="memory-game" id="memoryGame">
+            <!-- Cards will be generated by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- Message in a Bottle -->
+        <div class="bottle-container">
+          <div class="bottle" onclick="openBottle()">💌</div>
+          <div class="bottle-message" id="bottleMessage">
+            <h3>Send Me a Message!</h3>
+            <textarea class="message-input" placeholder="Type your message here..." rows="4" id="userMessage"></textarea>
+            <button class="security-btn" onclick="sendMessage()">Send Message</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Screen -->
+    <section id="galleryScreen" class="screen">
+      <div class="gallery-content">
+        <div class="security-gate" id="securityGate">
+          <h3><i class="fas fa-lock"></i> Unlock Gallery</h3>
+          <p>Answer these questions to unlock our special memories:</p>
+          
+          <input type="text" class="security-input" id="answer1" placeholder="What is the name I call you?">
+          <input type="text" class="security-input" id="answer2" placeholder="What's my name?">
+          
+          <div class="password-input">
+            <input type="password" class="security-input" id="answer3" placeholder="Enter the code I sent to you">
+            <button class="toggle-password" onclick="togglePassword()"><i class="fas fa-eye"></i></button>
+          </div>
+          
+          <button class="security-btn" onclick="checkGallery()">Unlock Gallery</button>
+        </div>
+        
+        <div class="gallery-grid" id="galleryContent" style="display:none;">
+          <!-- REPLACE THESE IMAGE URLS WITH YOUR PHOTOS -->
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400')">
+            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400" alt="Memory 1">
+          </div>
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1519741497674-611481863552?w=400')">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400" alt="Memory 2">
+          </div>
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400')">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400" alt="Memory 3">
+          </div>
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1545912452-8aea7e25a3d3?w=400')">
+            <img src="https://images.unsplash.com/photo-1545912452-8aea7e25a3d3?w=400" alt="Memory 4">
+          </div>
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=400')">
+            <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=400" alt="Memory 5">
+          </div>
+          <div class="gallery-item" onclick="openImageModal('https://images.unsplash.com/photo-1548449112-96a38a643324?w=400')">
+            <img src="https://images.unsplash.com/photo-1548449112-96a38a643324?w=400" alt="Memory 6">
+          </div>
+        </div>
+        
+        <div class="gallery-video" id="galleryVideo" style="display:none;">
+          <!-- REPLACE THIS VIDEO SOURCE WITH YOUR VIDEO -->
+          <video controls>
+            <source src="#" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="">
+      <button class="close-modal" onclick="closeImageModal()"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+
+  <!-- Popup Message -->
+  <div class="popup" id="popup"></div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>© 2023 Onome's Birthday | All Rights Reserved</p>
+    <p>Created with 💙 by Promise</p>
+  </div>
+
+  <!-- Audio Element - REPLACE THE SOURCE WITH YOUR MUSIC -->
+  <audio id="backgroundMusic" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Global variables
+    let points = 0;
+    let unlockedGallery = false;
+    const userEmail = "mrpboss1@gmail.com";
+    
+    // Glitter colors
+    const glitterColors = ['#ff4d94', '#4db8ff', '#ffdd00'];
+    
+    // Memory game messages
+    const memoryMessages = [
+      "You're the most beautiful woman I've ever known 💖",
+      "My heart skips a beat every time I see you 😍",
+      "I fall more in love with you every day 🌹",
+      "Your smile is my favorite sight in the world ✨",
+      "I'm endlessly grateful to have you in my life 💫",
+      "You make every day worth waking up for 🌞"
+    ];
+    
+    // Emojis for memory game
+    const memoryEmojis = ["💖", "😍", "🌹", "✨", "💫", "🌞"];
+    
+    // Initialize the page
+    function init() {
+      createGlitterBackground();
+      createMemoryGame();
+      createQuiz();
+      
+      // Start playing background music
+      const music = document.getElementById('backgroundMusic');
+      music.volume = 0.3;
+      music.play().catch(e => {
+        console.log("Audio play failed:", e);
+      });
+      
+      // Add glitter effect on click
+      document.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+          spawnEmoji(e.clientX, e.clientY);
+          createGlitterEffect(e.clientX, e.clientY);
+        }
+      });
+      
+      // Add glitter trail on mouse move
+      document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.7) {
+          createGlitterEffect(e.clientX, e.clientY, 3);
+        }
+      });
+    }
+    
+    // Create glitter background particles
+    function createGlitterBackground() {
+      const glitterBg = document.getElementById('glitterBg');
+      
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'glitter-particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.animationDelay = `${Math.random() * 8}s`;
+        particle.style.background = glitterColors[Math.floor(Math.random() * glitterColors.length)];
+        particle.style.width = `${Math.random() * 6 + 2}px`;
+        particle.style.height = particle.style.width;
+        glitterBg.appendChild(particle);
+      }
+    }
+    
+    // Create glitter effect at specific position
+    function createGlitterEffect(x, y, count = 15) {
+      for (let i = 0; i < count; i++) {
+        const glitter = document.createElement('div');
+        glitter.className = 'glitter';
+        glitter.style.left = `${x}px`;
+        glitter.style.top = `${y}px`;
+        glitter.style.background = glitterColors[Math.floor(Math.random() * glitterColors.length)];
+        glitter.style.width = `${Math.random() * 8 + 4}px`;
+        glitter.style.height = glitter.style.width;
+        glitter.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        glitter.style.animationDelay = `${Math.random() * 0.5}s`;
+        document.body.appendChild(glitter);
+        
+        setTimeout(() => {
+          glitter.remove();
+        }, 1000);
+      }
+    }
+    
+    // Toggle navigation menu
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+    
+    // Show specific screen and hide others
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      toggleMenu();
+    }
+    
+    // Show popup message
+    function showPopup(msg) {
+      const popup = document.getElementById('popup');
+      popup.innerHTML = msg;
+      popup.className = 'popup show';
+      
+      setTimeout(() => {
+        popup.className = 'popup hide';
+      }, 3000);
+    }
+    
+    // Check gallery answers
+    function checkGallery() {
+      const a1 = document.getElementById('answer1').value.toLowerCase();
+      const a2 = document.getElementById('answer2').value.toLowerCase();
+      const a3 = document.getElementById('answer3').value;
+      
+      if (a1 === 'onome' && a2 === 'promise' && a3 === '551370') {
+        document.getElementById('securityGate').style.display = 'none';
+        document.getElementById('galleryContent').style.display = 'grid';
+        document.getElementById('galleryVideo').style.display = 'block';
+        showPopup('🎉 Gallery Unlocked! Enjoy our memories!');
+        unlockedGallery = true;
+      } else {
+        showPopup('❌ Wrong answers, try again!');
+      }
+    }
+    
+    // Toggle password visibility
+    function togglePassword() {
+      const passwordInput = document.getElementById('answer3');
+      const toggleButton = document.querySelector('.toggle-password i');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleButton.className = 'fas fa-eye-slash';
+      } else {
+        passwordInput.type = 'password';
+        toggleButton.className = 'fas fa-eye';
+      }
+    }
+    
+    // Open image modal
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = src;
+      modal.classList.add('active');
+    }
+    
+    // Close image modal
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+    }
+    
+    // Spawn floating emoji at position
+    function spawnEmoji(x, y) {
+      const em = document.createElement('div');
+      em.className = 'emoji';
+      em.textContent = ['💙', '💝', '✨', '🎂', '🎉', '🎁'][Math.floor(Math.random() * 6)];
+      em.style.left = `${x}px`;
+      em.style.top = `${y}px`;
+      document.body.appendChild(em);
+      
+      setTimeout(() => {
+        em.remove();
+      }, 2000);
+    }
+    
+    // Reveal full gift card number
+    function revealCardNumber() {
+      const cardElement = document.getElementById('giftCardNumber');
+      cardElement.textContent = '6035 4892 7563 9012';
+      showPopup('Card number revealed! 💳');
+    }
+    
+    // Open message bottle
+    function openBottle() {
+      document.getElementById('bottleMessage').style.display = 'block';
+      createGlitterEffect(
+        document.querySelector('.bottle').getBoundingClientRect().left + 30,
+        document.querySelector('.bottle').getBoundingClientRect().top + 30,
+        30
+      );
+    }
+    
+    // Send message from bottle
+    function sendMessage() {
+      const message = document.getElementById('userMessage').value;
+      
+      if (message.trim() === '') {
+        showPopup('Please type a message first!');
+        return;
+      }
+      
+      // Send message to email
+      sendToEmail("New Message from Onome", message);
+      
+      showPopup('✨ Your message has been sent to Promise!');
+      document.getElementById('bottleMessage').style.display = 'none';
+      document.getElementById('userMessage').value = '';
+    }
+    
+    // Toggle foldable card
+    function toggleFoldable(card) {
+      card.classList.toggle('active');
+      const icon = card.querySelector('i');
+      if (card.classList.contains('active')) {
+        icon.className = 'fas fa-chevron-up';
+      } else {
+        icon.className = 'fas fa-chevron-down';
+      }
+    }
+    
+    // Create memory game
+    function createMemoryGame() {
+      const memoryGame = document.getElementById('memoryGame');
+      let cards = [];
+      
+      // Create pairs of cards with emojis
+      memoryEmojis.forEach((emoji, index) => {
+        cards.push({type: 'emoji', content: emoji, id: index});
+        cards.push({type: 'emoji', content: emoji, id: index});
+      });
+      
+      // Shuffle cards
+      cards.sort(() => Math.random() - 0.5);
+      
+      // Create card elements
+      cards.forEach(card => {
+        const cardElement = document.createElement('div');
+        cardElement.className = 'memory-card';
+        cardElement.dataset.id = card.id;
+        cardElement.dataset.message = memoryMessages[card.id];
+        
+        cardElement.innerHTML = `
+          <div class="front-face">${card.content}</div>
+          <div class="back-face"></div>
+        `;
+        
+        cardElement.addEventListener('click', () => flipCard(cardElement));
+        memoryGame.appendChild(cardElement);
+      });
+    }
+    
+    // Flip card in memory game
+    let hasFlippedCard = false;
+    let lockBoard = false;
+    let firstCard, secondCard;
+    let matchedPairs = 0;
+    
+    function flipCard(card) {
+      if (lockBoard) return;
+      if (card === firstCard) return;
+      if (card.classList.contains('flipped')) return;
+      
+      card.classList.add('flipped');
+      
+      if (!hasFlippedCard) {
+        // First click
+        hasFlippedCard = true;
+        firstCard = card;
+        return;
+      }
+      
+      // Second click
+      secondCard = card;
+      checkForMatch();
+    }
+    
+    function checkForMatch() {
+      let isMatch = firstCard.dataset.id === secondCard.dataset.id;
+      
+      if (isMatch) {
+        disableCards();
+        matchedPairs++;
+        
+        // Show the message when a pair is matched
+        showPopup(firstCard.dataset.message);
+        
+        createGlitterEffect(
+          firstCard.getBoundingClientRect().left + firstCard.offsetWidth/2,
+          firstCard.getBoundingClientRect().top + firstCard.offsetHeight/2,
+          20
+        );
+        
+        if (matchedPairs === 6) {
+          showPopup('🎮 Memory Game Complete! You discovered all my messages for you!');
+        }
+      } else {
+        unflipCards();
+      }
+    }
+    
+    function disableCards() {
+      firstCard.removeEventListener('click', flipCard);
+      secondCard.removeEventListener('click', flipCard);
+      resetBoard();
+    }
+    
+    function unflipCards() {
+      lockBoard = true;
+      
+      setTimeout(() => {
+        firstCard.classList.remove('flipped');
+        secondCard.classList.remove('flipped');
+        resetBoard();
+      }, 1000);
+    }
+    
+    function resetBoard() {
+      [hasFlippedCard, lockBoard] = [false, false];
+      [firstCard, secondCard] = [null, null];
+    }
+    
+    // Create quiz
+    function createQuiz() {
+      const quizContainer = document.getElementById('quizContainer');
+      const questions = [
+        {
+          question: "What's your favorite color?",
+          options: ["Red", "Blue", "Green", "Yellow", "Purple", "Pink", "Black", "White"],
+        },
+        {
+          question: "What's your dream vacation destination?",
+          options: ["Paris", "Bali", "Maldives", "Santorini", "Tokyo", "New York", "Dubai", "Barcelona"],
+        },
+        {
+          question: "What quality do you value most in a partner?",
+          options: ["Honesty", "Sense of humor", "Intelligence", "Kindness", "Ambition", "Loyalty", "Confidence", "Creativity"],
+        },
+        {
+          question: "What's your favorite type of food?",
+          options: ["Italian", "Chinese", "African", "Mexican", "Indian", "Japanese", "American", "Mediterranean"],
+        },
+        {
+          question: "What's your biggest ambition in life?",
+          options: ["Career success", "Happy family", "Travel the world", "Make a difference", "Financial freedom", "Personal growth", "Help others", "Create something lasting"],
+        },
+        {
+          question: "What do you find most attractive in someone?",
+          options: ["Physical appearance", "Confidence", "Intelligence", "Kind heart", "Sense of humor", "Ambition", "Creativity", "Passion"],
+        },
+        {
+          question: "What's your idea of a perfect date?",
+          options: ["Romantic dinner", "Adventure activity", "Netflix and chill", "Beach sunset", "Museum visit", "Concert or show", "Cooking together", "Road trip"],
+        },
+        {
+          question: "What makes you happiest?",
+          options: ["Spending time with loved ones", "Achieving goals", "Helping others", "Traveling", "Creating art", "Learning new things", "Good food", "Quiet moments"],
+        },
+        {
+          question: "What's your favorite way to relax?",
+          options: ["Reading a book", "Watching movies", "Listening to music", "Taking a bath", "Meditating", "Going for a walk", "Exercising", "Shopping"],
+        },
+        {
+          question: "What's your most valued possession?",
+          options: ["Photos and memories", "Phone", "Jewelry", "Books", "Art collections", "Clothing", "Car", "Home"],
+        },
+        {
+          question: "What trait do you admire most in others?",
+          options: ["Integrity", "Compassion", "Determination", "Creativity", "Generosity", "Optimism", "Patience", "Courage"],
+        },
+        {
+          question: "What's your favorite season?",
+          options: ["Spring", "Summer", "Autumn", "Winter"],
+        }
+      ];
+      
+      questions.forEach((q, index) => {
+        const questionElem = document.createElement('div');
+        questionElem.className = 'quiz-question';
+        questionElem.textContent = `${index + 1}. ${q.question}`;
+        quizContainer.appendChild(questionElem);
+        
+        const optionsElem = document.createElement('div');
+        optionsElem.className = 'quiz-options';
+        
+        q.options.forEach((option) => {
+          const optionElem = document.createElement('div');
+          optionElem.className = 'quiz-option';
+          optionElem.textContent = option;
+          optionElem.addEventListener('click', function() {
+            // Remove selected class from all options in this question
+            const allOptions = this.parentElement.children;
+            for (let i = 0; i < allOptions.length; i++) {
+              allOptions[i].classList.remove('selected');
+            }
+            
+            // Add selected class to clicked option
+            this.classList.add('selected');
+            
+            // Send answer to email
+            sendAnswerToEmail(q.question, option);
+          });
+          optionsElem.appendChild(optionElem);
+        });
+        
+        quizContainer.appendChild(optionsElem);
+      });
+    }
+    
+    // Send answer to email
+    function sendAnswerToEmail(question, answer) {
+      const subject = "Onome's Answer";
+      const body = `Question: ${question}\nAnswer: ${answer}`;
+      
+      sendToEmail(subject, body);
+      
+      // Show confirmation
+      showPopup('Answer recorded! 📩');
+    }
+    
+    // Send data to email using Formspree
+    function sendToEmail(subject, body) {
+      // Replace with your actual Formspree endpoint
+      const formspreeEndpoint = "https://formspree.io/f/your-form-id";
+      
+      fetch(formspreeEndpoint, {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              subject: subject,
+              message: body,
+              _replyto: "onome@example.com" // You can set this to anything
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Form submitted successfully:', data);
+      })
+      .catch(error => {
+          console.error('Error submitting form:', error);
+          // Fallback to mailto link if fetch fails
+          const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.location.href = mailtoLink;
+      });
+    }
+    
+    // Initialize when page loads
+    window.onload = init;
+  </script>
+</body>
+</html>
