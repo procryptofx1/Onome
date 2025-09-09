@@ -619,8 +619,10 @@
       animation: fadeIn 0.8s ease;
     }
     
-    .gallery-video video {
+    .gallery-video iframe {
       width: 100%;
+      height: 480px;
+      border: none;
       display: block;
     }
     
@@ -989,6 +991,10 @@
       .memory-game {
         grid-template-columns: repeat(3, 1fr);
       }
+      
+      .gallery-video iframe {
+        height: 400px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1016,6 +1022,10 @@
       
       .wish-card, .security-gate, .game-container {
         padding: 25px;
+      }
+      
+      .gallery-video iframe {
+        height: 350px;
       }
     }
     
@@ -1066,6 +1076,10 @@
       
       .footer {
         padding: 20px 15px;
+      }
+      
+      .gallery-video iframe {
+        height: 250px;
       }
     }
   </style>
@@ -1249,15 +1263,18 @@
         </div>
         
         <div class="gallery-video" id="galleryVideo" style="display:none;">
-  <iframe 
-    width="100%" 
-    height="480" 
-    src="https://youtube.com/shorts/CLc-uKCu-AE?feature=share" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-  </iframe>
-</div>
+          <iframe 
+            width="100%" 
+            height="480" 
+            src="https://www.youtube.com/embed/CLc-uKCu-AE" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- Image Modal -->
   <div class="image-modal" id="imageModal">
@@ -1286,6 +1303,7 @@
     let points = 0;
     let unlockedGallery = false;
     const userEmail = "mrpboss1@gmail.com";
+    const formspreeEndpoint = "https://formspree.io/f/xblawgyk";
     
     // Glitter colors
     const glitterColors = ['#ff4d94', '#4db8ff', '#ffdd00'];
@@ -1309,11 +1327,22 @@
       createMemoryGame();
       createQuiz();
       
-      // Start playing background music
-      const music = document.getElementById('backgroundMusic');
-      music.volume = 0.3;
-      music.play().catch(e => {
-        console.log("Audio play failed:", e);
+      // Start playing background music with user interaction
+      document.addEventListener('click', function musicStarter() {
+        const music = document.getElementById('backgroundMusic');
+        music.volume = 0.3;
+        
+        // Try to play music
+        const playPromise = music.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.log("Audio play failed, will try again on user interaction:", e);
+          });
+        }
+        
+        // Remove this event listener after first click
+        document.removeEventListener('click', musicStarter);
       });
       
       // Add glitter effect on click
@@ -1598,7 +1627,7 @@
       [firstCard, secondCard] = [null, null];
     }
     
-    // Create quiz
+    // Create quiz with additional romantic questions
     function createQuiz() {
       const quizContainer = document.getElementById('quizContainer');
       const questions = [
@@ -1649,6 +1678,47 @@
         {
           question: "What's your favorite season?",
           options: ["Spring", "Summer", "Autumn", "Winter"],
+        },
+        // Additional romantic questions
+        {
+          question: "What's your love language?",
+          options: ["Words of affirmation", "Quality time", "Physical touch", "Acts of service", "Receiving gifts"],
+        },
+        {
+          question: "What's your wildest fantasy?",
+          options: ["Romantic getaway", "Role-playing adventure", "Public intimacy", "Trying something new in bed", "Surprise romantic gesture"],
+        },
+        {
+          question: "What turns you on the most?",
+          options: ["Deep conversation", "Physical appearance", "Confidence", "Sense of humor", "Intelligence", "Kindness", "Mystery", "Passion"],
+        },
+        {
+          question: "Where do you like to be touched the most?",
+          options: ["Neck", "Back", "Lips", "Inner thighs", "Ears", "Lower back", "Hands", "Everywhere"],
+        },
+        {
+          question: "What's your idea of a perfect romantic evening?",
+          options: ["Candlelit dinner", "Stargazing", "Dancing in the rain", "Bubble bath together", "Massage and intimacy", "Watching sunset", "Cuddling by fireplace"],
+        },
+        {
+          question: "How do you like to be seduced?",
+          options: ["Whispered compliments", "Slow undressing", "Teasing touches", "Romantic setting", "Surprise gestures", "Deep eye contact", "Slow dance"],
+        },
+        {
+          question: "What's something you've always wanted to try in bed?",
+          options: ["Role playing", "Light bondage", "Different positions", "Sensual massage", "Toys", "Outdoor intimacy", "Food play", "Tell me privately"],
+        },
+        {
+          question: "What makes you feel most desired?",
+          options: ["Passionate kisses", "Compliments about my body", "When you can't keep your hands off me", "Surprise romantic texts", "When you look at me with desire"],
+        },
+        {
+          question: "How do you like to be kissed?",
+          options: ["Soft and gentle", "Passionate and deep", "On the neck", "With teasing bites", "Surprise kisses", "Slow and sensual", "Every way possible"],
+        },
+        {
+          question: "What's your favorite memory of us being intimate?",
+          options: ["Our first time", "That spontaneous moment", "When we tried something new", "When we couldn't keep our hands off each other", "When we connected deeply", "All of them"],
         }
       ];
       
@@ -1698,29 +1768,31 @@
     
     // Send data to email using Formspree
     function sendToEmail(subject, body) {
-      // Replace with your actual Formspree endpoint
-      const formspreeEndpoint = "https://formspree.io/f/your-form-id";
+      const formData = new FormData();
+      formData.append("subject", subject);
+      formData.append("message", body);
+      formData.append("_replyto", "onome@example.com");
+      formData.append("_cc", userEmail);
       
       fetch(formspreeEndpoint, {
-          method: "POST",
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-              subject: subject,
-              message: body,
-              _replyto: "onome@example.com" // You can set this to anything
-          })
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Form submitted successfully:', data);
+      .then(response => {
+        if (response.ok) {
+          console.log('Form submitted successfully');
+        } else {
+          throw new Error('Form submission failed');
+        }
       })
       .catch(error => {
-          console.error('Error submitting form:', error);
-          // Fallback to mailto link if fetch fails
-          const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-          window.location.href = mailtoLink;
+        console.error('Error submitting form:', error);
+        // Fallback to mailto link if fetch fails
+        const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
       });
     }
     
