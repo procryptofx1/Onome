@@ -54,6 +54,38 @@
       z-index: -1;
     }
     
+    /* ===== TRANSPARENCY NOTICE ===== */
+    .transparency-notice {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 51, 170, 0.9);
+      color: white;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      max-width: 300px;
+      z-index: 1001;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateX(320px);
+      transition: transform 0.3s ease;
+    }
+    
+    .transparency-notice.show {
+      transform: translateX(0);
+    }
+    
+    .transparency-notice .close-notice {
+      position: absolute;
+      top: 5px;
+      right: 8px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    
     /* ===== GLITTER BACKGROUND ===== */
     .glitter-bg {
       position: fixed;
@@ -1085,6 +1117,12 @@
   </style>
 </head>
 <body>
+  <!-- Transparency Notice -->
+  <div class="transparency-notice" id="transparencyNotice">
+    <button class="close-notice" onclick="closeTransparencyNotice()"><i class="fas fa-times"></i></button>
+    <strong>Onome:</strong> God bless you.💙
+  </div>
+
   <!-- Glitter Background -->
   <div class="glitter-bg" id="glitterBg"></div>
   
@@ -1134,29 +1172,29 @@
         <!-- Additional Birthday Wishes Cards -->
         <div class="wish-card">
           <h3><i class="fas fa-birthday-cake"></i> Birthday Wishes</h3>
-          <p>Happy Birthday, my rarest treasure. Today, I don’t just celebrate your birth, I celebrate the masterpiece God painted when He made you.</p>
-          <p>You’re not just beautiful on the surface, you’re the kind of beauty that runs so deep it unsettles the stars and humbles the moon. Every year of your life is proof that heaven still writes poetry on earth.</p>  
-          <p>I pray this new season floods your life with answers that silence your doubts, joy that leaves no space for tears, and love that feels like home. And if you ever wonder where that love is… remember, you’re already holding it in my heart.❤️🔥</p>
+          <p>Happy Birthday, my rarest treasure. Today, I don't just celebrate your birth, I celebrate the masterpiece God painted when He made you.</p>
+          <p>You're not just beautiful on the surface, you're the kind of beauty that runs so deep it unsettles the stars and humbles the moon. Every year of your life is proof that heaven still writes poetry on earth.</p>  
+          <p>I pray this new season floods your life with answers that silence your doubts, joy that leaves no space for tears, and love that feels like home. And if you ever wonder where that love is… remember, you're already holding it in my heart.❤️🔥</p>
         </div>
         
         <div class="wish-card">
           <h3><i class="fas fa-star"></i> More Birthday Wishes</h3>
-          <p>Happy Birthday to the sweetest troublemaker of my soul. You have no idea how dangerous it feels to know that God wrapped all that elegance, fire, and softness into one woman and then made me part of her story. You’re the only person who can make me pray with trembling and laugh with butterflies all in the same breath.😏</p> 
-          <p>May this year make you bolder, brighter, and even more irresistible. And don’t worry if the world isn’t ready for your shine, I’ll be right here reminding you that you were never born to fit in. You were born to take breath away, especially mine.💋</p>
+          <p>Happy Birthday to the sweetest troublemaker of my soul. You have no idea how dangerous it feels to know that God wrapped all that elegance, fire, and softness into one woman and then made me part of her story. You're the only person who can make me pray with trembling and laugh with butterflies all in the same breath.😏</p> 
+          <p>May this year make you bolder, brighter, and even more irresistible. And don't worry if the world isn't ready for your shine, I'll be right here reminding you that you were never born to fit in. You were born to take breath away, especially mine.💋</p>
         </div>
         
         <div class="wish-card">
           <h3><i class="fas fa-gift"></i> Special Birthday Message</h3>
-          <p>Happy Birthday, Onome. I can’t lie, you mean more to me than these words can carry. There was a time I almost lost the glow of your presence because of a little misunderstanding, but God proved His hand is on us by stitching it back. For that, I’m forever grateful.</p>
+          <p>Happy Birthday, Onome. I can't lie, you mean more to me than these words can carry. There was a time I almost lost the glow of your presence because of a little misunderstanding, but God proved His hand is on us by stitching it back. For that, I'm forever grateful.</p>
           <p>You are my soft place, my divine distraction, my holy desire, my constant reminder that God still does wonders.</p> 
-          <p>As you step into this new year, may your laughter double, may your steps never stumble, and may your heart overflow with love so deep that even your silent prayers echo as miracles. You’re not just growing older, you’re growing more into the woman I’ll always admire, desire, and protect.💎🔥.</p>
+          <p>As you step into this new year, may your laughter double, may your steps never stumble, and may your heart overflow with love so deep that even your silent prayers echo as miracles. You're not just growing older, you're growing more into the woman I'll always admire, desire, and protect.💎🔥.</p>
         </div>
 
         <div class="wish-card">
-          <h3><i class="fas fa-folded-hands"></i> Special Birthday Prayer</h3>
+          <h3><i class="fas fa-praying-hands"></i> Special Birthday Prayer</h3>
           <p>Happy Birthday, my precious one. On this sacred day, I lift you before God with a heart full of gratitude for your life, your light, and your love. May the Lord crown this new year with favor so heavy that even your shadows will shine. May He clothe your spirit with peace that no storm can steal, joy that never runs dry, and confidence that makes you walk like the queen He designed you to be in Jesus name, Amen. 🙏</p>
-          <p>And as I pray, I can’t hide my own heart’s desire, that I’ll keep being the one who gets to see your beauty bloom closer than anyone else. Because truth is, your laughter is my sermon, your smile my miracle, and your love my favorite answered prayer.</p>
-          <p>So shine, birthday queen. Heaven is applauding, and so am I, with a heart that’s forever yours.❤️</p>
+          <p>And as I pray, I can't hide my own heart's desire, that I'll keep being the one who gets to see your beauty bloom closer than anyone else. Because truth is, your laughter is my sermon, your smile my miracle, and your love my favorite answered prayer.</p>
+          <p>So shine, birthday queen. Heaven is applauding, and so am I, with a heart that's forever yours.❤️</p>
         </div>
         
         <!-- Foldable Cards -->
@@ -1295,7 +1333,7 @@
 
   <!-- Audio Element - REPLACE THE SOURCE WITH YOUR MUSIC -->
   <audio id="backgroundMusic" loop>
-    <source src="https://drive.google.com/uc?export=download&id=1NLfCTxQJVafF8Z5DiuLzyJ54_B4U6qUi" type="audio/mpeg">
+    <source src="https://www.dropbox.com/scl/fi/uwwzt1al7ngrhnonukoiu/JJ-Heller-Happy-Birthday-Song-CeeNaija.com.mp3?rlkey=n2nerl2s2694ri2wqm972qj7p&st=wputlpqc&dl=0" type="audio/mpeg">
   </audio>
 
   <script>
@@ -1326,24 +1364,32 @@
       createGlitterBackground();
       createMemoryGame();
       createQuiz();
+      showTransparencyNotice();
       
-      // Start playing background music with user interaction
-      document.addEventListener('click', function musicStarter() {
-        const music = document.getElementById('backgroundMusic');
-        music.volume = 0.3;
-        
-        // Try to play music
-        const playPromise = music.play();
-        
-        if (playPromise !== undefined) {
-          playPromise.catch(e => {
-            console.log("Audio play failed, will try again on user interaction:", e);
-          });
-        }
-        
-        // Remove this event listener after first click
-        document.removeEventListener('click', musicStarter);
-      });
+      // Enhanced auto-play background music
+      const music = document.getElementById('backgroundMusic');
+      music.volume = 0.3;
+      
+      // Try to autoplay immediately
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Autoplay blocked, waiting for user interaction");
+          
+          // Play music on first user interaction
+          const playOnInteraction = () => {
+            music.play().catch(e => console.log("Music play failed:", e));
+            // Remove listeners after first successful play
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('keydown', playOnInteraction);
+          };
+          
+          document.addEventListener('click', playOnInteraction);
+          document.addEventListener('touchstart', playOnInteraction);
+          document.addEventListener('keydown', playOnInteraction);
+        });
+      }
       
       // Add glitter effect on click
       document.addEventListener('click', (e) => {
@@ -1359,6 +1405,18 @@
           createGlitterEffect(e.clientX, e.clientY, 3);
         }
       });
+    }
+    
+    // Show transparency notice
+    function showTransparencyNotice() {
+      setTimeout(() => {
+        document.getElementById('transparencyNotice').classList.add('show');
+      }, 2000);
+    }
+    
+    // Close transparency notice
+    function closeTransparencyNotice() {
+      document.getElementById('transparencyNotice').classList.remove('show');
     }
     
     // Create glitter background particles
@@ -1422,6 +1480,67 @@
       }, 3000);
     }
     
+    // Enhanced email sending function
+    function sendToEmail(subject, body) {
+      const formData = new FormData();
+      formData.append("subject", subject);
+      formData.append("message", body);
+      formData.append("_replyto", userEmail);
+      formData.append("timestamp", new Date().toLocaleString());
+      
+      // Primary method - Formspree
+      fetch(formspreeEndpoint, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Message sent successfully via Formspree');
+        } else {
+          throw new Error('Formspree submission failed');
+        }
+      })
+      .catch(error => {
+        console.error('Formspree failed, trying backup method:', error);
+        
+        // Fallback to mailto if all else fails
+        const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        setTimeout(() => {
+          window.open(mailtoLink, '_blank');
+        }, 1000);
+      });
+    }
+    
+    // Enhanced quiz answer capture
+    function sendAnswerToEmail(question, answer) {
+      const subject = "Onome's Quiz Answer";
+      const body = `Question: ${question}\nAnswer: ${answer}\nTime: ${new Date().toLocaleString()}`;
+      
+      sendToEmail(subject, body);
+    }
+    
+    // Enhanced message capture
+    function sendMessage() {
+      const message = document.getElementById('userMessage').value;
+      
+      if (message.trim() === '') {
+        showPopup('Please type a message first!');
+        return;
+      }
+      
+      const subject = "Personal Message from Onome";
+      const body = `Message: ${message}\nSent at: ${new Date().toLocaleString()}`;
+      
+      sendToEmail(subject, body);
+      
+      showPopup('Your message has been sent to Promise!');
+      document.getElementById('bottleMessage').style.display = 'none';
+      document.getElementById('userMessage').value = '';
+    }
+    
     // Check gallery answers
     function checkGallery() {
       const a1 = document.getElementById('answer1').value.toLowerCase();
@@ -1434,8 +1553,14 @@
         document.getElementById('galleryVideo').style.display = 'block';
         showPopup('🎉 Gallery Unlocked! Enjoy our memories!');
         unlockedGallery = true;
+        
+        // Send gallery unlock notification
+        sendToEmail("Gallery Unlocked", "Onome successfully unlocked the gallery at " + new Date().toLocaleString());
       } else {
         showPopup('❌ Wrong answers, try again!');
+        
+        // Send failed attempt notification
+        sendToEmail("Gallery Access Attempt", `Failed attempt: ${a1}, ${a2}, ${a3} at ${new Date().toLocaleString()}`);
       }
     }
     
@@ -1459,6 +1584,9 @@
       const modalImage = document.getElementById('modalImage');
       modalImage.src = src;
       modal.classList.add('active');
+      
+      // Send image view notification
+      sendToEmail("Image Viewed", `Onome viewed image: ${src} at ${new Date().toLocaleString()}`);
     }
     
     // Close image modal
@@ -1486,6 +1614,9 @@
       const cardElement = document.getElementById('giftCardNumber');
       cardElement.textContent = '7627 3510 5487 72616';
       showPopup('Card number revealed! 💳');
+      
+      // Send card reveal notification
+      sendToEmail("Gift Card Revealed", "Onome revealed the gift card number at " + new Date().toLocaleString());
     }
     
     // Open message bottle
@@ -1496,31 +1627,21 @@
         document.querySelector('.bottle').getBoundingClientRect().top + 30,
         30
       );
-    }
-    
-    // Send message from bottle
-    function sendMessage() {
-      const message = document.getElementById('userMessage').value;
       
-      if (message.trim() === '') {
-        showPopup('Please type a message first!');
-        return;
-      }
-      
-      // Send message to email
-      sendToEmail("New Message from Onome", message);
-      
-      showPopup('✨ Your message has been sent to Promise!');
-      document.getElementById('bottleMessage').style.display = 'none';
-      document.getElementById('userMessage').value = '';
+      // Send bottle open notification
+      sendToEmail("Message Bottle Opened", "Onome opened the message bottle at " + new Date().toLocaleString());
     }
     
     // Toggle foldable card
     function toggleFoldable(card) {
       card.classList.toggle('active');
       const icon = card.querySelector('i');
+      const cardTitle = card.querySelector('h3').textContent;
+      
       if (card.classList.contains('active')) {
         icon.className = 'fas fa-chevron-up';
+        // Send card open notification
+        sendToEmail("Foldable Card Opened", `Onome opened: "${cardTitle}" at ${new Date().toLocaleString()}`);
       } else {
         icon.className = 'fas fa-chevron-down';
       }
@@ -1592,6 +1713,9 @@
         // Show the message when a pair is matched
         showPopup(firstCard.dataset.message);
         
+        // Send match notification
+        sendToEmail("Memory Game Match", `Onome matched a pair and saw: "${firstCard.dataset.message}" at ${new Date().toLocaleString()}`);
+        
         createGlitterEffect(
           firstCard.getBoundingClientRect().left + firstCard.offsetWidth/2,
           firstCard.getBoundingClientRect().top + firstCard.offsetHeight/2,
@@ -1600,6 +1724,7 @@
         
         if (matchedPairs === 6) {
           showPopup('🎮 Memory Game Complete! You discovered all my messages for you!');
+          sendToEmail("Memory Game Completed", "Onome completed the memory game at " + new Date().toLocaleString());
         }
       } else {
         unflipCards();
@@ -1637,7 +1762,7 @@
         },
         {
           question: "What's your dream vacation destination?",
-          options: ["Paris", "Bali", "Maldives", "Santorini", "Tokyo", "Johannesburg", "New York", "Dubai", " U.S.A", "Barcelona", " China", "U.K"],
+          options: ["Paris", "Bali", "Maldives", "Santorini", "Tokyo", "Johannesburg", "New York", "Dubai", "U.S.A", "Barcelona", "China", "U.K"],
         },
         {
           question: "What quality do you value most in a partner?",
@@ -1752,45 +1877,6 @@
         });
         
         quizContainer.appendChild(optionsElem);
-      });
-    }
-    
-    // Send answer to email
-    function sendAnswerToEmail(question, answer) {
-      const subject = "Onome's Answer";
-      const body = `Question: ${question}\nAnswer: ${answer}`;
-      
-      sendToEmail(subject, body);
-     
-    }
-    
-    // Send data to email using Formspree
-    function sendToEmail(subject, body) {
-      const formData = new FormData();
-      formData.append("subject", subject);
-      formData.append("message", body);
-      formData.append("_replyto", "mrpboss1@gmail.com");
-      formData.append("_cc", userEmail);
-      
-      fetch(formspreeEndpoint, {
-        method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Form submitted successfully');
-        } else {
-          throw new Error('Form submission failed');
-        }
-      })
-      .catch(error => {
-        console.error('Error submitting form:', error);
-        // Fallback to mailto link if fetch fails
-        const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailtoLink;
       });
     }
     
